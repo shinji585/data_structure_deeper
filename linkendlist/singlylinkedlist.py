@@ -9,7 +9,7 @@ class SinglyLinkedList(Generic[T]):
     def __init__(self) -> None:
         self.__head: Optional[Node] = None 
         self.__tail: Optional[Node] = None
-        self.__size = 0 
+        self.__size: int = 0 
         
     """
      head: point to the first node 
