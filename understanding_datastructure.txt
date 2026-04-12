@@ -14,3 +14,18 @@ head.next before newNode could be this
 head.next = [data1 | next = None]
 
 or simply next = None
+
+after the value is save 
+head.next = [data2 | next = None]
+
+so why head need to be equal to newNode
+
+or instead of doing that the really model is 
+
+tail -> [data1 | next = ] -> [data2 | next = ] -> head where head is [data2 | next = None] ?
+
+
+the model ends up being this:
+
+tail → [data1 | next → [data2 | next=None]]  
+head → [data2 | next=None]

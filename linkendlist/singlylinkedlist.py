@@ -33,6 +33,7 @@ class SinglyLinkedList(Generic[T]):
             
             
     # operations of the interface
+    
         
     def append(self,data: T) -> None: 
         newNode = Node(data=data)
@@ -44,7 +45,8 @@ class SinglyLinkedList(Generic[T]):
             self.__head.next = newNode
             self.__head = newNode
         
-        self.__size += 1 
+        self.__size += 1
+        
         
     def remove(self, data: T) -> None: 
         current = self.__tail
