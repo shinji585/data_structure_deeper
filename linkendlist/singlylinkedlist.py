@@ -92,7 +92,74 @@ class SinglyLinkedList(Generic[T]):
                 
             self.__increase__()
                                           
+     
+    def remove_at_beginning(self) -> None:
+        if self.__head is None: 
+            return 
         
+        if self.__head == self.__tail:
+            self.__head = None
+            self.__tail = None
+        else:
+            self.__head = self.__head.next
+        self.__decrease__()
+        
+    def remove_at_end(self) -> None: 
+        if self.__head is None: 
+            return
+        
+        if self.__head == self.__tail: 
+            self.__head = None
+            self.__tail = None 
+        else: 
+            prev: Optional[Node] = None 
+            current = self.__head
+            while current.next is not None: 
+                prev = current
+                current = current.next
+                
+            assert prev is not None
+            prev.next = None 
+            self.__tail = prev
+        self.__decrease__()
+            
+    def remove(self,reference: T) -> None: 
+        if self.__head is None: 
+            return
+        
+        if self.__head.data == reference:
+            self.remove_at_beginning()
+            return
+        
+        prev: Optional[Node] = None 
+        current: Optional[Node] = self.__head
+        while current is not None and current.data != reference:
+            prev =  current 
+            current = current.next
+                
+        if current is None: 
+            return    
+            
+        assert prev is not None
+        if current == self.__tail: 
+            prev.next = None
+            self.__tail = prev
+        else:
+            prev.next = current.next
+            
+        self.__decrease__()
+                
+    def clear(self) -> None: 
+        self.__head = None 
+        self.__tail = None
+        self.__size = 0 
+        
+    def search(self,reference: T) -> bool: 
+        for value in self: 
+            if value == reference: 
+                return True
+        return False          
+                
     def __len__(self) -> int:
         return self.__size
     
@@ -102,5 +169,11 @@ class SinglyLinkedList(Generic[T]):
             yield current.data
             current = current.next
             
+    def is_empty(self) -> bool: 
+        return self == 0
+            
     def __increase__(self) -> None: 
         self.__size += 1  
+        
+    def __decrease__(self) -> None: 
+        self.__size -= 1 
