@@ -1,7 +1,3 @@
-# a single linkend list is not a list as the you could think, the best definition for this is a only node that has the function 
-# of be a point to the start and that goint from it to the end 
-
-
 from typing import Generator, Generic, Optional, TypeVar
 
 from node import Node
@@ -9,72 +5,102 @@ from node import Node
 T = TypeVar('T')
 
 class SinglyLinkedList(Generic[T]):
-    """
-     the singly linked list class only contains two attribute: the size, and the head 
-    """
+    
     def __init__(self) -> None:
-        self.__head: Optional[Node] = None
+        self.__head: Optional[Node] = None 
         self.__tail: Optional[Node] = None
         self.__size = 0 
         
+    """
+     head: point to the first node 
+     tail: point to the last node 
+     size: is the amount of data store 
+    """
+    
+    def insert_at_beginning(self,data: T) -> None:
+        newNode = Node(data=data)
         
-    # dunder methods 
-    def __len__(self):
+        if self.__head is None:
+            """
+            CASE 1: in this case both point to newNode because is the first node store 
+            """
+            self.__head = newNode
+            self.__tail = newNode
+        else: 
+            """
+            CASE 2: In this case head connect the last value before to the new and then move to it 
+            """
+            newNode.next = self.__head
+            self.__head = newNode 
+            
+        self.__increase__()
+        
+    
+    def insert_at_end(self,data: T) -> None: 
+        newNode = Node(data=data)
+        
+        if self.__tail is None:  
+            """
+            CASE 1: in this case both point to newNode because is the first node store 
+            """
+            self.__head = newNode
+            self.__tail = newNode
+        else: 
+            """
+            CASE 2: In this case tail connect the last value before to the new and then move to it 
+            """
+            self.__tail.next = newNode
+            self.__tail = newNode
+            
+        self.__increase__()
+        
+    def insert_before(self,data: T,reference: T) -> None: 
+        if self.__head is None: 
+            return 
+        
+        if self.__head.data == reference: 
+            self.insert_at_beginning(data=data)
+            return 
+        
+        prev: Optional[Node] = None 
+        current: Optional[Node] = self.__head
+        
+        while current is not None and current.data != reference: 
+            prev = current
+            current = current.next
+            
+        if current is not None and current.data == reference: 
+            newNode = Node(data=data)
+            assert prev is not None
+            prev.next = newNode
+            newNode.next = current
+            self.__increase__()
+            
+    def insert_after(self,data: T,reference: T) -> None:         
+        current = self.__head
+
+        while current is not None and current.data != reference: 
+            current = current.next
+            
+        if current is not None and current.data == reference: 
+            newNode = Node(data=data)
+            newNode.next = current.next
+            current.next = newNode 
+            
+            if current == self.__tail:
+                self.__tail = newNode
+                
+            self.__increase__()
+                                          
+        
+    def __len__(self) -> int:
         return self.__size
     
     def __iter__(self) -> Generator:
-        current = self.__tail
+        current = self.__head
         while current: 
             yield current.data
             current = current.next
             
-    def __str__(self) -> str:
-        return f"Values({[x for x in self.__iter__()]})"
-            
-            
-    # operations of the interface
-    
-        
-    def append(self,data: T) -> None: 
-        newNode = Node(data=data)
-        
-        if self.__head is None: 
-            self.__head = newNode
-            self.__tail = newNode
-        else: 
-            self.__head.next = newNode
-            self.__head = newNode
-        
-        self.__size += 1
-        
-        
-    def remove(self, data: T) -> None: 
-        current = self.__tail
-        prev: Optional[Node] = None
-        while current: 
-            if current.data == data:
-                if prev is None: 
-                    self.__tail = current.next
-                else: 
-                    prev.next = current.next
-                
-                if current == self.__head: 
-                    self.__head = prev
-                    
-                self.__size -= 1 
-                return 
-            
-            prev = current
-            current = current.next
-            
-    def search(self,data: T) -> bool: 
-        for node in self.__iter__():
-            if data == node: 
-                return True
-        return False
-                
-    def clear(self): 
-        """ clear the entire list. """
-        self.__tail = None
-        self.__head = None
-            
+    def __increase__(self) -> None: 
+        self.__size += 1  
