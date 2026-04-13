@@ -1,0 +1,19 @@
+{
+  "include": [
+    "linkendlist",
+    "tests",
+    "main.py"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    ".venv",
+    "htmlcov"
+  ],
+  "pythonVersion": "3.14",
+  "typeCheckingMode": "basic",
+  "ignore": ["htmlcov"],
+  "reportMissingTypeStubs": false,
+  "reportMissingImports": false,
+  "reportUnusedImport": "warning"
+}
