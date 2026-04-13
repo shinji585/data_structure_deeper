@@ -1,6 +1,6 @@
 from typing import Generator, Generic, Optional, TypeVar
 
-from node import Node
+from .node import Node
 
 T = TypeVar('T')
 
@@ -76,7 +76,7 @@ class SinglyLinkedList(Generic[T]):
             newNode.next = current
             self.__increase__()
             
-    def insert_after(self,data: T,reference: T) -> None:         
+    def insert_after(self,data: T,reference: T) -> None:                 
         current = self.__head
 
         while current is not None and current.data != reference: 
@@ -159,6 +159,18 @@ class SinglyLinkedList(Generic[T]):
             if value == reference: 
                 return True
         return False          
+
+    @property
+    def head(self) -> Optional[Node[T]]:
+        return self.__head
+
+    @property
+    def tail(self) -> Optional[Node[T]]:
+        return self.__tail
+
+    @property
+    def size(self) -> int:
+        return self.__size
                 
     def __len__(self) -> int:
         return self.__size
@@ -170,7 +182,7 @@ class SinglyLinkedList(Generic[T]):
             current = current.next
             
     def is_empty(self) -> bool: 
-        return self == 0
+        return len(self) == 0
             
     def __increase__(self) -> None: 
         self.__size += 1  
