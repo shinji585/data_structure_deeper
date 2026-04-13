@@ -198,3 +198,109 @@ class TestSinglyLinkedList:
         self.sll.insert_at_end(1)
         self.sll.remove(999)
         assert self.sll.size == 1
+
+    def test_search_exists(self):
+        """Test searching for an existing element"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        assert self.sll.search(2) is True
+        assert self.sll.search(1) is True
+        assert self.sll.search(3) is True
+
+    def test_search_not_exists(self):
+        """Test searching for a non-existing element"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        assert self.sll.search(999) is False
+        assert self.sll.search(0) is False
+
+    def test_search_empty_list(self):
+        """Test searching in an empty list"""
+        assert self.sll.search(1) is False
+
+    def test_find_exists(self):
+        """Test finding an existing element"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        assert self.sll.find(2) == 2
+        assert self.sll.find(1) == 1
+        assert self.sll.find(3) == 3
+
+    def test_find_not_exists(self):
+        """Test finding a non-existing element"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        assert self.sll.find(999) is None
+        assert self.sll.find(0) is None
+
+    def test_find_empty_list(self):
+        """Test finding in an empty list"""
+        assert self.sll.find(1) is None
+
+    def test_remove_before_middle(self):
+        """Test removing the node before a middle element"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        self.sll.remove_before(3)  # Should remove 2
+        assert self.sll.size == 2
+        assert list(self.sll) == [1, 3]
+
+    def test_remove_before_second_element(self):
+        """Test removing the node before the second element (removes head)"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        self.sll.remove_before(2)  # Should remove 1
+        assert self.sll.size == 2
+        head = self.sll.head
+        assert head is not None
+        assert head.data == 2
+
+    def test_remove_before_empty(self):
+        """Test removing before in empty list"""
+        self.sll.remove_before(1)
+        assert self.sll.size == 0
+
+    def test_remove_before_single_element(self):
+        """Test removing before when only one element exists"""
+        self.sll.insert_at_end(1)
+        self.sll.remove_before(1)
+        assert self.sll.size == 1  # Nothing removed
+
+    def test_remove_after_middle(self):
+        """Test removing the node after a middle element"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        self.sll.remove_after(1)  # Should remove 2
+        assert self.sll.size == 2
+        assert list(self.sll) == [1, 3]
+
+    def test_remove_after_tail(self):
+        """Test removing after tail (nothing to remove)"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        self.sll.remove_after(3)  # Should not remove anything
+        assert self.sll.size == 3
+
+    def test_remove_after_becomes_tail(self):
+        """Test that tail pointer is updated when removing after last element"""
+        self.sll.insert_at_end(1)
+        self.sll.insert_at_end(2)
+        self.sll.insert_at_end(3)
+        self.sll.remove_after(2)  # Should remove 3, making 2 the tail
+        tail = self.sll.tail
+        assert tail is not None
+        assert tail.data == 2
+        assert self.sll.size == 2
+
+    def test_remove_after_empty(self):
+        """Test removing after in empty list"""
+        self.sll.remove_after(1)
+        assert self.sll.size == 0

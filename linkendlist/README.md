@@ -231,6 +231,114 @@ sll.remove(2)  # [1] → [3]
 
 ---
 
+#### 8. `remove_before(reference: T)`
+
+Elimina el nodo ANTERIOR al nodo de referencia.
+
+**Lógica:**
+1. Si lista vacía o solo un elemento, retorna
+2. Si el siguiente de head es reference, elimina head
+3. Traversa para encontrar el nodo anterior al reference
+4. Desconecta el nodo anterior
+
+```python
+sll = SinglyLinkedList()
+sll.insert_at_end(1)
+sll.insert_at_end(2)
+sll.insert_at_end(3)
+sll.remove_before(3)  # Elimina 2: [1] → [3]
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 9. `remove_after(reference: T)`
+
+Elimina el nodo POSTERIOR al nodo de referencia.
+
+**Lógica:**
+1. Traversa hasta encontrar el reference
+2. Si reference.next existe, desconéctalo
+3. Si era tail, actualiza tail
+
+```python
+sll = SinglyLinkedList()
+sll.insert_at_end(1)
+sll.insert_at_end(2)
+sll.insert_at_end(3)
+sll.remove_after(1)  # Elimina 2: [1] → [3]
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 10. `search(reference: T) -> bool`
+
+Busca un elemento y retorna si existe (True) o no (False).
+
+**Lógica:**
+1. Traversa toda la lista
+2. Compara cada elemento con reference
+3. Retorna True si encuentra, False si llega al final
+
+```python
+sll = SinglyLinkedList()
+sll.insert_at_end(1)
+sll.insert_at_end(2)
+sll.insert_at_end(3)
+
+sll.search(2)  # True
+sll.search(5)  # False
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 11. `find(reference: T) -> Optional[T]`
+
+Busca un elemento y retorna el elemento si existe, None si no.
+
+**Lógica:**
+1. Traversa toda la lista
+2. Compara cada elemento con reference
+3. Retorna el elemento si encuentra, None si llega al final
+
+```python
+sll = SinglyLinkedList()
+sll.insert_at_end(1)
+sll.insert_at_end(2)
+sll.insert_at_end(3)
+
+sll.find(2)  # 2
+sll.find(5)  # None
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 12. Iteración (Traversal)
+
+La lista simple se puede iterar solo en dirección forward:
+
+```python
+sll = SinglyLinkedList()
+sll.insert_at_end(1)
+sll.insert_at_end(2)
+sll.insert_at_end(3)
+
+# Iteración forward
+for item in sll:
+    print(item)  # 1, 2, 3
+```
+
+**Complejidad:** O(n)
+
+---
+
 ## 🔄 Lista Doblemente Enlazada
 
 ### Descripción
@@ -379,17 +487,157 @@ dll.remove(2)  # ←[1]↔[3]→
 
 ---
 
+#### 8. `remove_before(reference: T)`
+
+Elimina el nodo ANTERIOR al nodo de referencia, manteniendo referencias bidireccionales.
+
+**Lógica:**
+1. Encuentra el nodo reference
+2. Si tiene prev, desconecta y actualiza referencias
+3. Si era head, actualiza head
+
+```python
+dll = DoublyLinkedList()
+dll.insert_at_end(1)
+dll.insert_at_end(2)
+dll.insert_at_end(3)
+dll.remove_before(3)  # Elimina 2: ←[1]↔[3]→
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 9. `remove_after(reference: T)`
+
+Elimina el nodo POSTERIOR al nodo de referencia, manteniendo referencias bidireccionales.
+
+**Lógica:**
+1. Encuentra el nodo reference
+2. Si tiene next, desconecta y actualiza referencias
+3. Si era tail, actualiza tail
+
+```python
+dll = DoublyLinkedList()
+dll.insert_at_end(1)
+dll.insert_at_end(2)
+dll.insert_at_end(3)
+dll.remove_after(1)  # Elimina 2: ←[1]↔[3]→
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 10. `search(data: T) -> bool`
+
+Busca un elemento y retorna si existe (True) o no (False).
+
+```python
+dll = DoublyLinkedList()
+dll.insert_at_end(1)
+dll.insert_at_end(2)
+dll.insert_at_end(3)
+
+dll.search(2)  # True
+dll.search(5)  # False
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 11. `find(data: T) -> Optional[T]`
+
+Busca un elemento y retorna el elemento si existe, None si no.
+
+```python
+dll = DoublyLinkedList()
+dll.insert_at_end(1)
+dll.insert_at_end(2)
+dll.insert_at_end(3)
+
+dll.find(2)  # 2
+dll.find(5)  # None
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 12. `iterate_backward() -> Generator[T]`
+
+Itera la lista en dirección reversa (desde tail hasta head).
+
+```python
+dll = DoublyLinkedList()
+dll.insert_at_end(1)
+dll.insert_at_end(2)
+dll.insert_at_end(3)
+
+# Iteración forward
+for item in dll:
+    print(item)  # 1, 2, 3
+
+# Iteración backward
+for item in dll.iterate_backward():
+    print(item)  # 3, 2, 1
+```
+
+**Complejidad:** O(n)
+
+---
+
+#### 13. Iteración Bidireccional
+
+La lista doble se puede iterar en ambas direcciones:
+
+```python
+dll = DoublyLinkedList()
+dll.insert_at_end(1)
+dll.insert_at_end(2)
+dll.insert_at_end(3)
+
+# Forward (head → tail)
+for item in dll:
+    print(item)  # 1, 2, 3
+
+# Backward (tail → head)
+for item in dll.iterate_backward():
+    print(item)  # 3, 2, 1
+```
+
+**Complejidad:** O(n) ambas direcciones
+
+---
+
 ## ⚖️ Comparación
 
-| Operación | Simple | Doblemente |
-|-----------|--------|-----------|
-| Insertar al inicio | O(1) | O(1) |
-| Insertar al final | O(1) | O(1) |
-| Insertar en medio | O(n) | O(n) |
-| Eliminar inicio | O(1) | O(1) |
-| Eliminar final | O(n) | O(1) * |
-| Eliminar en medio | O(n) | O(n) |
-| Traversal adelante | O(1) por nodo | O(1) por nodo |
+| Operación | Simple | Doblemente | Descripción |
+|-----------|--------|-----------|-------------|
+| Insertar al inicio | O(1) | O(1) | Ambos eficientes |
+| Insertar al final | O(1) | O(1) | Ambos eficientes |
+| Insertar antes de ref | O(n) | O(n) | Requiere búsqueda |
+| Insertar después de ref | O(n) | O(n) | Requiere búsqueda |
+| Eliminar inicio | O(1) | O(1) | Ambos eficientes |
+| Eliminar final | O(n) | O(1) | Doble más eficiente |
+| Eliminar por valor | O(n) | O(n) | Requiere búsqueda |
+| Eliminar antes de ref | O(n) | O(n) | Requiere búsqueda |
+| Eliminar después de ref | O(n) | O(n) | Requiere búsqueda |
+| Búsqueda secuencial | O(n) | O(n) | Ambos igual |
+| Traversal adelante | ✓ | ✓ | Ambos soportan |
+| Traversal atrás | ❌ | ✓ | Solo doble |
+| Memoria por nodo | 2 refs | 3 refs | Doble usa más memoria |
+
+### Ventajas Lista Simple:
+- ✅ Menos memoria (solo next)
+- ✅ Más simple de implementar
+- ✅ Suficiente para la mayoría de casos
+
+### Ventajas Lista Doble:
+- ✅ Traversal bidireccional
+- ✅ Eliminación final O(1)
+- ✅ Más flexible para algoritmos complejos
 | Traversal atrás | ❌ No posible | O(1) por nodo |
 | Memoria por nodo | 1 referencia | 2 referencias |
 

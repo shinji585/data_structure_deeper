@@ -1,4 +1,4 @@
-from typing import Generator, Generic, Optional, TypeVar
+from typing import Generator, Generic, Optional, TypeVar, cast
 
 from .node import Node
 
@@ -158,7 +158,55 @@ class SinglyLinkedList(Generic[T]):
         for value in self: 
             if value == reference: 
                 return True
-        return False          
+        return False
+    
+    def find(self, reference: T) -> Optional[T]:
+        """Retorna el elemento si existe, None si no existe"""
+        for value in self:
+            if value == reference:
+                return cast(T, value)
+        return None
+    
+    def remove_before(self, reference: T) -> None:
+        """Elimina el nodo anterior al nodo de referencia"""
+        if self.__head is None or self.__head.next is None:
+            return
+        
+        if self.__head.next.data == reference:
+            self.remove_at_beginning()
+            return
+        
+        prev_prev: Optional[Node] = None
+        prev: Optional[Node] = self.__head
+        current: Optional[Node] = self.__head.next
+        
+        while current is not None and current.data != reference:
+            prev_prev = prev
+            prev = current
+            current = current.next
+        
+        if current is not None and current.data == reference and prev is not None:
+            if prev_prev is not None:
+                prev_prev.next = current
+            self.__decrease__()
+    
+    def remove_after(self, reference: T) -> None:
+        """Elimina el nodo posterior al nodo de referencia"""
+        current = self.__head
+        
+        while current is not None and current.data != reference:
+            current = current.next
+        
+        if current is None or current.next is None:
+            return
+        
+        if current.next == self.__tail:
+            current.next = None
+            self.__tail = current
+        else:
+            current.next = current.next.next
+        
+        self.__decrease__()          
 
     @property
     def head(self) -> Optional[Node[T]]:

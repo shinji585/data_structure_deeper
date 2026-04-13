@@ -1,4 +1,4 @@
-from typing import Generator, Generic, Optional, TypeVar
+from typing import Generator, Generic, Optional, TypeVar, cast
 
 from .node2 import Node
 
@@ -157,6 +157,60 @@ class DoublyLinkedList(Generic[T]):
             if value == data:
                 return True
         return False
+    
+    def find(self, data: T) -> Optional[T]:
+        """Retorna el elemento si existe, None si no existe"""
+        for value in self:
+            if value == data:
+                return cast(T, value)
+        return None
+    
+    def remove_before(self, reference: T) -> None:
+        """Elimina el nodo anterior al nodo de referencia"""
+        current: Optional[Node] = self.__head
+        
+        while current is not None and current.data != reference:
+            current = current.next
+        
+        if current is None or current.prev is None:
+            return
+        
+        prev_node = current.prev
+        
+        if prev_node == self.__head:
+            self.remove_at_beginning()
+        else:
+            if prev_node.prev is not None:
+                prev_node.prev.next = current
+            current.prev = prev_node.prev
+            self.__decrease__()
+    
+    def remove_after(self, reference: T) -> None:
+        """Elimina el nodo posterior al nodo de referencia"""
+        current: Optional[Node] = self.__head
+        
+        while current is not None and current.data != reference:
+            current = current.next
+        
+        if current is None or current.next is None:
+            return
+        
+        next_node = current.next
+        
+        if next_node == self.__tail:
+            self.remove_at_end()
+        else:
+            current.next = next_node.next
+            if next_node.next is not None:
+                next_node.next.prev = current
+            self.__decrease__()
+    
+    def iterate_backward(self) -> Generator:
+        """Recorre la lista en sentido inverso (desde tail a head)"""
+        current = self.__tail
+        while current:
+            yield current.data
+            current = current.prev
     
     def __increase__(self) -> None: 
         self.__size += 1 

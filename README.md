@@ -44,10 +44,20 @@ data_structure_deeper/
 
 ## 🗺️ Roadmap - Estructuras Planeadas
 
-1. **Listas Enlazadas** ✅ (Completado)
-   - Lista Enlazada Simple (Singly Linked List)
-   - Lista Doblemente Enlazada (Doubly Linked List)
-   - Lista Circular
+1. **Listas Enlazadas** ✅ (Completado - Todas las operaciones implementadas)
+   - Lista Enlazada Simple (Singly Linked List) ✅
+     - ✅ Insertar al inicio/final
+     - ✅ Insertar antes/después de referencia
+     - ✅ Eliminar al inicio/final
+     - ✅ Eliminar antes/después de referencia
+     - ✅ Eliminar por valor
+     - ✅ Búsqueda secuencial (search/find)
+     - ✅ Iteración forward
+   - Lista Doblemente Enlazada (Doubly Linked List) ✅
+     - ✅ Todas las operaciones anteriores
+     - ✅ Iteración backward (iterate_backward)
+     - ✅ Eliminación final O(1)
+   - Lista Circular 🔄 (Pendiente)
 
 2. **Pilas y Colas** 🔄 (Próximo)
    - Stack (Pila)
