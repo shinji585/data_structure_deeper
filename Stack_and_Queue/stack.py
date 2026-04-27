@@ -36,10 +36,7 @@ class Stack(Generic[T]):
             return self.__top.data
         else: 
             return None
-        
-        
-    def remove(self) -> None: 
-        pass
+
         
     def __increase__(self) -> None: 
         self.__size += 1 
@@ -55,4 +52,3 @@ class Stack(Generic[T]):
         while current: 
             yield current.data
             current = current.next
-            
