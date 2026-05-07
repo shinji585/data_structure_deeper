@@ -37,7 +37,6 @@ class Stack(Generic[T]):
         else: 
             return None
 
-        
     def __increase__(self) -> None: 
         self.__size += 1 
         
