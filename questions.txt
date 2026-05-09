@@ -1,0 +1,36 @@
+que es un arbol general y cuales son sus componentes principales 
+
+como se define la relacion padre-hijo en un arbol T 
+
+que diferencia hay entre nodo raiz, nodo interno y nodo hoja 
+
+que significaque un arbol tenga un grado determinado 
+
+que es la profundidad de un nododentro de un arbol 
+
+por que los arboles generales son utiles para representar estructuras jerarquias complejas 
+
+que ventaja tiene un arbol general frente a otras estructuras lineales como listas o pilas 
+
+en que situaciones es mas eficiente usar un arbol general que un arbol binario 
+
+que dificultades puede sugir al implementar un arbol general en memoria 
+
+como influye el grado de un arbol en su eficiencia y uso 
+
+respuestas 
+un arbol invertido es un tipo de arbolel cual sus ramas parecen raices apuntadoal cielo 
+
+un arbol general organiza nodos siguiendo el concepto de arbol invertido en donde cada nodo puede tener cero, 
+uno o multiples hijos, este no tiene limite establecido sobre cuantos subarboles puede tener cada nodo 
+
+nodo -> es la entidad basica 
+raiz -> el primer nodo o el nivel superior del arbol, el unico que no tiene padre 
+hijo -> un nodo conectado directamente a otro nodo superior (padre)
+padre -> un nodo que tiene subnodos conectados a el 
+hojas -> nodos terminales que no tienen hijos 
+aristas -> los enlaces que conectan dos nodos y gestional la relacion padre-hijo 
+subarbol -> cualquier nodo y sus descendientes 
+altura -> el numero de aristas
+
+la profundida de un nodo en un arbol es la longitud del camino unico desde la raiz hasta dicho nodo 
