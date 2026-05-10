@@ -36,18 +36,16 @@ class BinaryTreeSearch[T: Comparable]:
         if self.root is None:
             self.root = newNode
         else:
-            current: Node[T] = self.root
+            current: Optional[Node[T]] = self.root
             parent: Optional[Node[T]] = None
-            while True:
+            while current is not None:
                 parent = current
                 if newNode.data < current.data:
-                    assert current.left_child
                     current = current.left_child
                     if current is None:
                         parent.left_child = newNode
                         return
                 else:
-                    assert current.right_child
                     current = current.right_child
                     if current is None:
                         parent.right_child = newNode
