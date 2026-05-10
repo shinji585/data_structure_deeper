@@ -5,7 +5,4 @@
     <option name="sdkName" value="WSL (Ubuntu-22.04): (/home/toji/.virtualenvs/data_structure_deeper/bin/python) (2)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="WSL (Ubuntu-22.04): (/home/toji/.virtualenvs/data_structure_deeper/bin/python) (2)" project-jdk-type="Python SDK" />
-  <component name="RuffConfiguration">
-    <option name="enabled" value="true" />
-  </component>
 </project>

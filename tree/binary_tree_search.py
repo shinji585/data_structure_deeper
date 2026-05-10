@@ -1,11 +1,14 @@
-from typing import Generic, Optional, TypeVar
+from typing import Any, Optional, Protocol, Iterator
 
 from tree.tree_node import Node
 
-T = TypeVar("T")
+
+class Comparable(Protocol):
+    def __lt__(self, other: Any) -> bool: ...
+    def __gt__(self, other: Any) -> bool: ...
 
 
-class BinaryTreeSearch(Generic[T]):
+class BinaryTreeSearch[T: Comparable]:
     def __init__(self):
         self.root: Optional[Node[T]] = None
 
@@ -101,9 +104,33 @@ class BinaryTreeSearch(Generic[T]):
                 parent_of_leftmost_node.left_child = leftmost_node.right_child
             else:
                 parent_of_leftmost_node.right_child = leftmost_node.right_child
+        return True
+
+    def search(self, data: T) -> bool:
+        current: Optional[Node[T]] = self.root
+
+        while current is not None:
+            if current.data == data:
+                return True
+
+            if data < current.data:
+                current = current.left_child
+            else:
+                current = current.right_child
+
+        return False
+
+    def preorder(self) -> None:
+        self.__preorder__(self.root)
+
+    def inorder(self) -> None:
+        self.__inorder__(self.root)
+
+    def postorder(self) -> None:
+        self.__postorder__(self.root)
 
     def __get_parent_and_node__(self, data: T) -> tuple:
-        current: Node[T] = self.root
+        current: Optional[Node[T]] = self.root
         parent: Optional[Node[T]] = None
 
         while current is not None:
@@ -118,3 +145,31 @@ class BinaryTreeSearch(Generic[T]):
                 current = current.right_child
 
         return parent, None
+
+    def __preorder__(self, current: Optional[Node[T]]) -> Iterator[T]:
+
+        if current is None:
+            return
+
+        yield current.data
+
+        yield from self.__preorder__(current.left_child)
+        yield from self.__preorder__(current.right_child)
+
+    def __inorder__(self, current: Optional[Node[T]]) -> Iterator[T]:
+
+        if current is None:
+            return
+
+        yield from self.__inorder__(current.left_child)
+        yield current.data
+        yield from self.__inorder__(current.right_child)
+
+    def __postorder__(self, current: Optional[Node[T]]) -> Iterator[T]:
+
+        if current is None:
+            return
+
+        yield from self.__postorder__(current.left_child)
+        yield from self.__postorder__(current.right_child)
+        yield current.data
