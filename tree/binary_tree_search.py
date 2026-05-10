@@ -27,7 +27,7 @@ class BinaryTreeSearch(Generic[T]):
             current = current.right_child
         return current
 
-    def insertion(self, data: T) -> None:
+    def insert(self, data: T) -> None:
         newNode = Node(data)
 
         if self.root is None:
@@ -49,6 +49,58 @@ class BinaryTreeSearch(Generic[T]):
                     if current is None:
                         parent.right_child = newNode
                         return
+
+    def remove(self, data: T) -> bool:
+        parent, node = self.__get_parent_and_node__(data)
+
+        if parent is None and node is None:
+            return False
+
+        # children count
+        children_count: int = 0
+
+        if node.left_child and node.right_child:
+            children_count = 2
+        elif (node.left_child is None) and (node.right_child is None):
+            children_count = 0
+        else:
+            children_count = 1
+
+        if children_count == 0:
+            if parent:
+                if parent.right_child is node:
+                    parent.right_child = None
+                else:
+                    parent.left_child = None
+            else:
+                self.root = None
+        elif children_count == 1:
+            next_node: Optional[Node[T]] = None
+            if node.left_child:
+                next_node = node.left_child
+            else:
+                next_node = node.right_child
+
+            if parent:
+                if parent.left_child is node:
+                    parent.left_child = next_node
+                else:
+                    parent.right_child = next_node
+            else:
+                self.root = next_node
+        else:
+            parent_of_leftmost_node = node
+            leftmost_node: Node[T] = node.right_child
+            while leftmost_node.left_child is not None:
+                parent_of_leftmost_node = leftmost_node
+                leftmost_node = leftmost_node.left_child
+
+            node.data = leftmost_node.data
+
+            if parent_of_leftmost_node.left_child == leftmost_node:
+                parent_of_leftmost_node.left_child = leftmost_node.right_child
+            else:
+                parent_of_leftmost_node.right_child = leftmost_node.right_child
 
     def __get_parent_and_node__(self, data: T) -> tuple:
         current: Node[T] = self.root
