@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71606039-84aa-4821-8e55-d2e46fa1dcb1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tree/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/data-structure-deeper.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/data-structure-deeper.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tree/binary_tree_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/tree/binary_tree_search.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +213,7 @@
       <workItem from="1778372549590" duration="3311000" />
       <workItem from="1778433903840" duration="548000" />
       <workItem from="1778434566110" duration="21000" />
-      <workItem from="1778434776295" duration="5127000" />
+      <workItem from="1778434776295" duration="12806000" />
     </task>
     <servers />
   </component>

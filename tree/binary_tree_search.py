@@ -12,23 +12,23 @@ class BinaryTreeSearch[T: Comparable]:
     def __init__(self):
         self.root: Optional[Node[T]] = None
 
-    def find_min(self) -> Node[T]:
+    def find_min(self) -> T:
         if self.root is None:
             raise ValueError("Tree is empty")
 
         current: Node[T] = self.root
         while current.left_child is not None:
             current = current.left_child
-        return current
+        return current.data
 
-    def find_max(self) -> Node[T]:
+    def find_max(self) -> T:
         if self.root is None:
             raise ValueError("Tree is empty")
 
         current: Node[T] = self.root
         while current.right_child is not None:
             current = current.right_child
-        return current
+        return current.data
 
     def insert(self, data: T) -> None:
         newNode = Node(data)
@@ -54,7 +54,7 @@ class BinaryTreeSearch[T: Comparable]:
     def remove(self, data: T) -> bool:
         parent, node = self.__get_parent_and_node__(data)
 
-        if parent is None and node is None:
+        if node is None:
             return False
 
         # children count
@@ -98,10 +98,13 @@ class BinaryTreeSearch[T: Comparable]:
 
             node.data = leftmost_node.data
 
-            if parent_of_leftmost_node.left_child == leftmost_node:
-                parent_of_leftmost_node.left_child = leftmost_node.right_child
-            else:
+            if parent_of_leftmost_node is node:
                 parent_of_leftmost_node.right_child = leftmost_node.right_child
+            else:
+                if parent_of_leftmost_node.left_child == leftmost_node:
+                    parent_of_leftmost_node.left_child = leftmost_node.right_child
+                else:
+                    parent_of_leftmost_node.right_child = leftmost_node.right_child
         return True
 
     def search(self, data: T) -> bool:
@@ -111,21 +114,21 @@ class BinaryTreeSearch[T: Comparable]:
             if current.data == data:
                 return True
 
-            if data < current.data:
+            elif data < current.data:
                 current = current.left_child
             else:
                 current = current.right_child
 
         return False
 
-    def preorder(self) -> None:
-        self.__preorder__(self.root)
+    def preorder(self) -> Iterator[T]:
+        yield from self.__preorder__(self.root)
 
-    def inorder(self) -> None:
-        self.__inorder__(self.root)
+    def inorder(self) -> Iterator[T]:
+        yield from self.__inorder__(self.root)
 
-    def postorder(self) -> None:
-        self.__postorder__(self.root)
+    def postorder(self) -> Iterator[T]:
+        yield from self.__postorder__(self.root)
 
     def __get_parent_and_node__(self, data: T) -> tuple:
         current: Optional[Node[T]] = self.root
